@@ -20,7 +20,7 @@ Application for exploring PostgreSQL lock types, command relationships, and conf
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Bihan001/postgres-locks-lookup
    cd postgres-locks-lookup
    ```
 
