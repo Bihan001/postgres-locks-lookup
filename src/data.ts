@@ -216,6 +216,72 @@ export const getConflictingLocks = (lockName: string): string[] => {
   return getConflicts(lockName);
 };
 
+// Check if two commands can run together (their locks don't conflict)
+export const commandsCanRunTogether = (command1: string, command2: string): boolean => {
+  const cmd1 = data.commands.find(cmd => cmd.name === command1);
+  const cmd2 = data.commands.find(cmd => cmd.name === command2);
+  
+  if (!cmd1 || !cmd2) return false;
+  
+  // Check if any lock from command1 conflicts with any lock from command2
+  for (const lock1 of cmd1.locks) {
+    for (const lock2 of cmd2.locks) {
+      if (hasConflict(lock1, lock2)) {
+        return false;
+      }
+    }
+  }
+  
+  return true;
+};
+
+export const getAllCommandNames = (): string[] => {
+  return data.commands.map(cmd => cmd.name);
+};
+
+export const getCommandByName = (commandName: string): Command | undefined => {
+  return data.commands.find(cmd => cmd.name === commandName);
+};
+
+export const generateCommandDescription = (commandName: string): string | null => {
+  const command = getCommandByName(commandName);
+  if (!command) return null;
+
+  let description = `**${command.name}** is a PostgreSQL command. `;
+  
+  if (command.description) {
+    description += command.description + " ";
+  }
+  
+  // Locks used by this command
+  if (command.locks.length > 0) {
+    if (command.locks.length === 1) {
+      description += `This command requires the **${command.locks[0]}** lock. `;
+    } else {
+      const lastLock = command.locks[command.locks.length - 1];
+      const otherLocks = command.locks.slice(0, -1);
+      description += `This command requires **${otherLocks.join(', ')}** and **${lastLock}** locks. `;
+    }
+    
+    // Explain why the lock is needed
+    const lockReasons = command.locks.map(lockName => {
+      const lock = getLockByName(lockName);
+      if (lock && lock.description) {
+        return `**${lockName}** is required because ${lock.description.toLowerCase()}`;
+      }
+      return `**${lockName}** is required for this operation`;
+    });
+    
+    if (lockReasons.length === 1) {
+      description += lockReasons[0] + ".";
+    } else {
+      description += lockReasons.join("; ") + ".";
+    }
+  }
+  
+  return description;
+};
+
 export const generateLockDescription = (lockName: string): string | null => {
   const lock = getLockByName(lockName);
   if (!lock) return null;

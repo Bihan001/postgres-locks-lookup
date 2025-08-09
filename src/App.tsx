@@ -4,7 +4,7 @@ import LockMatrix from './components/LockMatrix';
 import SearchBar from './components/SearchBar';
 import AccordionCard from './components/AccordionCard';
 import LockInfoDisplay from './components/LockInfoDisplay';
-import { searchItems, generateLockDescription } from './data';
+import { searchItems, generateLockDescription, generateCommandDescription } from './data';
 import { Command, Lock } from './types';
 
 function App() {
@@ -16,6 +16,11 @@ function App() {
   const [showRowLocks, setShowRowLocks] = useState(true);
   const [selectedLock, setSelectedLock] = useState<string | null>(null);
   const [lockDescription, setLockDescription] = useState<string | null>(null);
+  const [selectedCommand, setSelectedCommand] = useState<string | null>(null);
+  const [commandDescription, setCommandDescription] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'locks' | 'commands'>('locks');
+  const [selectedRow, setSelectedRow] = useState<string | null>(null);
+  const [selectedColumn, setSelectedColumn] = useState<string | null>(null);
 
   // Update search results when query changes
   useEffect(() => {
@@ -44,19 +49,42 @@ function App() {
     setSelectedLock(lockName);
     const description = generateLockDescription(lockName);
     setLockDescription(description);
+    // Clear command selection
+    setSelectedCommand(null);
+    setCommandDescription(null);
+  };
+
+  const handleCommandClick = (commandName: string) => {
+    setAutoExpandFromClick(true);
+    setSearchQuery(commandName);
+    setSelectedCommand(commandName);
+    const description = generateCommandDescription(commandName);
+    setCommandDescription(description);
+    // Clear lock selection
+    setSelectedLock(null);
+    setLockDescription(null);
+  };
+
+  const handleRowColumnSelect = (rowName: string | null, columnName: string | null) => {
+    setSelectedRow(rowName);
+    setSelectedColumn(columnName);
   };
 
   const handleManualSearch = (query: string) => {
     setAutoExpandFromClick(false);
     setSearchQuery(query);
-    // Don't show lock info for manual searches
+    // Don't show lock/command info for manual searches
     setSelectedLock(null);
     setLockDescription(null);
+    setSelectedCommand(null);
+    setCommandDescription(null);
   };
 
   const handleCloseLockInfo = () => {
     setSelectedLock(null);
     setLockDescription(null);
+    setSelectedCommand(null);
+    setCommandDescription(null);
   };
 
   const toggleCard = (itemName: string) => {
@@ -69,33 +97,15 @@ function App() {
     setExpandedCards(newExpanded);
   };
 
-  // Filter items based on checkbox selections
-  const filterItems = (items: (Command | Lock)[]) => {
-    return items.filter(item => {
-      if ('locks' in item) {
-        // This is a command - always show if either lock type is enabled
-        return showTableLocks || showRowLocks;
-      } else {
-        // This is a lock - filter by type
-        const lock = item as Lock;
-        if (lock.type === 'table') {
-          return showTableLocks;
-        } else {
-          return showRowLocks;
-        }
-      }
-    });
-  };
-
-  // Get all items when no search query, filtered by checkboxes
+  // Get all items when no search query (no filtering by checkboxes for search results)
   const allItems = searchQuery.trim() 
-    ? filterItems(searchResults) 
-    : filterItems(searchItems('', true, true));
+    ? searchResults 
+    : searchItems('', true, true);
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header */}
       <div className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center items-center space-x-3 mb-4">
             <Database className="w-10 h-10 text-blue-600" />
@@ -105,25 +115,48 @@ function App() {
             Explore PostgreSQL lock types, command relationships, and conflict matrices
           </p>
         </div>
+      </div>
 
-        {/* Main Lock Conflict Matrix */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Lock Conflict Matrix</h2>
-          <p className="text-gray-600 mb-4">
-            Red X indicates conflicts, green circles indicate compatibility. Click lock names to search.
-          </p>
-          <LockMatrix 
-            onLockClick={handleLockClick} 
-            showTableLocks={showTableLocks}
-            showRowLocks={showRowLocks}
-          />
+      {/* Tab Navigation */}
+      <div className="bg-white shadow-sm border-b border-gray-200 mb-8">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <nav className="flex">
+            <button
+              onClick={() => setActiveTab('locks')}
+              className={`relative px-6 py-4 font-medium text-sm transition-all duration-200 ${
+                activeTab === 'locks'
+                  ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-500'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+              }`}
+            >
+              Lock Conflict Matrix
+              {activeTab === 'locks' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab('commands')}
+              className={`relative px-6 py-4 font-medium text-sm transition-all duration-200 ${
+                activeTab === 'commands'
+                  ? 'text-blue-600 bg-blue-50 border-b-2 border-blue-500'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+              }`}
+            >
+              Command Compatibility Matrix
+              {activeTab === 'commands' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"></div>
+              )}
+            </button>
+          </nav>
         </div>
+      </div>
 
-        {/* Search Section */}
-        <div className="mb-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-4">
-            <h2 className="text-2xl font-bold text-gray-900">Search Commands & Locks</h2>
-            <div className="flex items-center space-x-6">
+      {/* Matrix Content */}
+      {activeTab === 'locks' && (
+        <div className="container mx-auto px-4 mb-8 max-w-7xl">
+          {/* Checkboxes */}
+          <div className="mb-6">
+            <div className="flex justify-end items-center space-x-6">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -144,6 +177,51 @@ function App() {
               </label>
             </div>
           </div>
+
+          {/* Lock Conflict Matrix */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Lock Conflict Matrix</h2>
+            <p className="text-gray-600 mb-4">
+              Red X indicates conflicts, green circles indicate compatibility. Click lock names to search.
+            </p>
+            <LockMatrix 
+              onLockClick={handleLockClick} 
+              showTableLocks={showTableLocks}
+              showRowLocks={showRowLocks}
+              matrixType="locks"
+              selectedRow={selectedRow}
+              selectedColumn={selectedColumn}
+              onRowColumnSelect={handleRowColumnSelect}
+            />
+          </div>
+        </div>
+      )}
+
+      {activeTab === 'commands' && (
+        <div className="w-full px-4 mb-8">
+          {/* Command Compatibility Matrix */}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Command Compatibility Matrix</h2>
+            <p className="text-gray-600 mb-4 text-center max-w-4xl mx-auto">
+              Red X indicates commands that cannot run together due to lock conflicts, green circles indicate commands that can run concurrently. Click command names to search.
+            </p>
+            <LockMatrix 
+              onCommandClick={handleCommandClick} 
+              matrixType="commands"
+              selectedRow={selectedRow}
+              selectedColumn={selectedColumn}
+              onRowColumnSelect={handleRowColumnSelect}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Search Section */}
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="mb-8">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-gray-900">Search Commands & Locks</h2>
+          </div>
           <SearchBar 
             value={searchQuery} 
             onChange={handleManualSearch}
@@ -159,10 +237,11 @@ function App() {
             </h2>
           </div>
           
-          {/* Lock Information Display */}
+          {/* Lock/Command Information Display */}
           <LockInfoDisplay 
             lockName={selectedLock}
-            description={lockDescription}
+            commandName={selectedCommand}
+            description={lockDescription || commandDescription}
             onClose={handleCloseLockInfo}
           />
           
@@ -178,7 +257,6 @@ function App() {
                   item={item}
                   isExpanded={expandedCards.has(item.name)}
                   onToggle={() => toggleCard(item.name)}
-                  onLockClick={handleLockClick}
                 />
               ))}
             </div>

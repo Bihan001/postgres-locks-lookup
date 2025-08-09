@@ -3,16 +3,18 @@ import { Info, X } from 'lucide-react';
 
 interface LockInfoDisplayProps {
   lockName: string | null;
+  commandName: string | null;
   description: string | null;
   onClose: () => void;
 }
 
 const LockInfoDisplay: React.FC<LockInfoDisplayProps> = ({ 
   lockName, 
+  commandName,
   description, 
   onClose 
 }) => {
-  if (!lockName || !description) return null;
+  if ((!lockName && !commandName) || !description) return null;
 
   // Parse markdown-style bold text for rendering
   const renderDescription = (text: string) => {
@@ -37,7 +39,7 @@ const LockInfoDisplay: React.FC<LockInfoDisplayProps> = ({
           <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
           <div className="flex-1">
             <h3 className="font-semibold text-blue-900 mb-2">
-              Lock Information: {lockName}
+              {lockName ? `Lock Information: ${lockName}` : `Command Information: ${commandName}`}
             </h3>
             <p className="text-blue-800 leading-relaxed">
               {renderDescription(description)}
@@ -47,7 +49,7 @@ const LockInfoDisplay: React.FC<LockInfoDisplayProps> = ({
         <button
           onClick={onClose}
           className="ml-3 p-1 hover:bg-blue-100 rounded-full transition-colors flex-shrink-0"
-          title="Close lock information"
+          title={lockName ? "Close lock information" : "Close command information"}
         >
           <X className="w-4 h-4 text-blue-600" />
         </button>

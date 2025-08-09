@@ -23,26 +23,58 @@ body {
   font-size: 0.75rem;
   line-height: 1.2;
   cursor: pointer;
-  transition: background-color 0.2s;
-  background-color: rgb(249 250 251); /* gray-50 */
-}
-
-.matrix-header:hover {
-  background-color: rgb(219 234 254); /* blue-100 */
+  transition: all 0.15s ease-in-out;
+  position: relative;
 }
 
 .matrix-row-header {
-  background-color: rgb(249 250 251); /* gray-50 */
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.matrix-row-header:hover {
-  background-color: rgb(219 234 254); /* blue-100 */
+  transition: all 0.15s ease-in-out;
+  position: relative;
 }
 
 .matrix-cell {
+  transition: all 0.15s ease-in-out;
+}
+
+/* Hover effects for entire rows and columns */
+.matrix-table tbody tr:hover .matrix-cell {
+  background-color: rgb(243 244 246) !important; /* gray-100 */
+}
+
+.matrix-table tbody tr:hover .matrix-row-header {
+  background-color: rgb(219 234 254) !important; /* blue-100 */
+}
+
+.matrix-table:hover .matrix-header:hover {
+  background-color: rgb(219 234 254) !important; /* blue-100 */
+}
+
+.matrix-table:hover .matrix-header:hover ~ .matrix-header {
   background-color: rgb(249 250 251); /* gray-50 */
+}
+
+/* Column hover effect using CSS */
+.matrix-table {
+  position: relative;
+}
+
+.matrix-table th:hover {
+  position: relative;
+  z-index: 10;
+}
+
+/* Selected state styling */
+.matrix-table .selected-row .matrix-cell {
+  background-color: rgb(219 234 254) !important; /* blue-100 */
+}
+
+.matrix-table .selected-column .matrix-cell {
+  background-color: rgb(219 234 254) !important; /* blue-100 */
+}
+
+.matrix-table .selected-intersection {
+  background-color: rgb(147 197 253) !important; /* blue-300 */
 }
 
 /* Table layout adjustments */

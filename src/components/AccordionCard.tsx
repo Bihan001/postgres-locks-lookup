@@ -1,13 +1,12 @@
 import React from 'react';
 import { ChevronDown, ChevronRight, Database, Lock } from 'lucide-react';
 import { Command, Lock as LockType } from '../types';
-import LockMatrix from './LockMatrix';
+import { generateCommandDescription, generateLockDescription } from '../data';
 
 interface AccordionCardProps {
   item: Command | LockType;
   isExpanded: boolean;
   onToggle: () => void;
-  onLockClick: (lockName: string) => void;
 }
 
 const isCommand = (item: Command | LockType): item is Command => {
@@ -17,8 +16,7 @@ const isCommand = (item: Command | LockType): item is Command => {
 const AccordionCard: React.FC<AccordionCardProps> = ({ 
   item, 
   isExpanded, 
-  onToggle, 
-  onLockClick 
+  onToggle
 }) => {
   const itemIsCommand = isCommand(item);
 
@@ -69,11 +67,21 @@ const AccordionCard: React.FC<AccordionCardProps> = ({
       
       {isExpanded && (
         <div className="border-t border-gray-200 p-4 bg-gray-50">
-          <LockMatrix 
-            onLockClick={onLockClick}
-            highlightedLocks={itemIsCommand ? item.locks : [item.name]}
-            showOnlyHighlighted={true}
-          />
+          <div className="prose prose-sm max-w-none">
+            {itemIsCommand ? (
+              <div 
+                dangerouslySetInnerHTML={{ 
+                  __html: generateCommandDescription(item.name)?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || 'No description available.' 
+                }}
+              />
+            ) : (
+              <div 
+                dangerouslySetInnerHTML={{ 
+                  __html: generateLockDescription(item.name)?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || 'No description available.' 
+                }}
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
