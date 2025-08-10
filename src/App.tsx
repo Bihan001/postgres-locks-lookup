@@ -4,6 +4,7 @@ import LockMatrix from './components/LockMatrix';
 import SearchBar from './components/SearchBar';
 import AccordionCard from './components/AccordionCard';
 import LockInfoDisplay from './components/LockInfoDisplay';
+import ScrollIndicator from './components/ScrollIndicator';
 import { searchItems, generateLockDescription, generateCommandDescription } from './data';
 import { Command, Lock } from './types';
 
@@ -184,34 +185,38 @@ function App() {
             <p className="text-gray-600 mb-4">
               Red X indicates conflicts, green circles indicate compatibility. Click lock names to search.
             </p>
-            <LockMatrix 
-              onLockClick={handleLockClick} 
-              showTableLocks={showTableLocks}
-              showRowLocks={showRowLocks}
-              matrixType="locks"
-              selectedRow={selectedRow}
-              selectedColumn={selectedColumn}
-              onRowColumnSelect={handleRowColumnSelect}
-            />
+            <ScrollIndicator>
+              <LockMatrix 
+                onLockClick={handleLockClick} 
+                showTableLocks={showTableLocks}
+                showRowLocks={showRowLocks}
+                matrixType="locks"
+                selectedRow={selectedRow}
+                selectedColumn={selectedColumn}
+                onRowColumnSelect={handleRowColumnSelect}
+              />
+            </ScrollIndicator>
           </div>
         </div>
       )}
 
       {activeTab === 'commands' && (
-        <div className="w-full px-4 mb-8">
+        <div className="container mx-auto px-4 mb-8 max-w-7xl">
           {/* Command Compatibility Matrix */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">Command Compatibility Matrix</h2>
-            <p className="text-gray-600 mb-4 text-center max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Command Compatibility Matrix</h2>
+            <p className="text-gray-600 mb-4">
               Red X indicates commands that cannot run together due to lock conflicts, green circles indicate commands that can run concurrently. Click command names to search.
             </p>
-            <LockMatrix 
-              onCommandClick={handleCommandClick} 
-              matrixType="commands"
-              selectedRow={selectedRow}
-              selectedColumn={selectedColumn}
-              onRowColumnSelect={handleRowColumnSelect}
-            />
+            <ScrollIndicator>
+              <LockMatrix 
+                onCommandClick={handleCommandClick} 
+                matrixType="commands"
+                selectedRow={selectedRow}
+                selectedColumn={selectedColumn}
+                onRowColumnSelect={handleRowColumnSelect}
+              />
+            </ScrollIndicator>
           </div>
         </div>
       )}

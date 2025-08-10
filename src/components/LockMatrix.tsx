@@ -105,7 +105,7 @@ const LockMatrix: React.FC<LockMatrixProps> = ({
 
 
   return (
-    <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
+    <div className="bg-white rounded-lg shadow-lg">
       <table className="w-full border-collapse matrix-table">
         <thead>
           <tr>

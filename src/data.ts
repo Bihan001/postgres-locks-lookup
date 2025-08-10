@@ -243,6 +243,14 @@ export const getCommandByName = (commandName: string): Command | undefined => {
   return data.commands.find(cmd => cmd.name === commandName);
 };
 
+// Get all commands that conflict with a given command
+export const getConflictingCommands = (commandName: string): string[] => {
+  const allCommands = getAllCommandNames();
+  return allCommands.filter(otherCommand => 
+    otherCommand !== commandName && !commandsCanRunTogether(commandName, otherCommand)
+  );
+};
+
 export const generateCommandDescription = (commandName: string): string | null => {
   const command = getCommandByName(commandName);
   if (!command) return null;

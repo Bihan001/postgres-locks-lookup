@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronDown, ChevronRight, Database, Lock } from 'lucide-react';
 import { Command, Lock as LockType } from '../types';
-import { generateCommandDescription, generateLockDescription } from '../data';
+import { generateCommandDescription, generateLockDescription, getConflictingCommands } from '../data';
 
 interface AccordionCardProps {
   item: Command | LockType;
@@ -69,11 +69,36 @@ const AccordionCard: React.FC<AccordionCardProps> = ({
         <div className="border-t border-gray-200 p-4 bg-gray-50">
           <div className="prose prose-sm max-w-none">
             {itemIsCommand ? (
-              <div 
-                dangerouslySetInnerHTML={{ 
-                  __html: generateCommandDescription(item.name)?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || 'No description available.' 
-                }}
-              />
+              <>
+                <div 
+                  dangerouslySetInnerHTML={{ 
+                    __html: generateCommandDescription(item.name)?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') || 'No description available.' 
+                  }}
+                />
+                {/* Conflicting Commands Grid */}
+                {(() => {
+                  const conflictingCommands = getConflictingCommands(item.name);
+                  if (conflictingCommands.length > 0) {
+                    return (
+                      <div className="mt-6">
+                        <h4 className="text-sm font-semibold text-gray-900 mb-3">Conflicting Commands:</h4>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                          {conflictingCommands.map(command => (
+                            <div 
+                              key={command}
+                              className="px-3 py-2 bg-red-50 border border-red-200 rounded text-xs text-red-800 text-center hover:bg-red-100 transition-colors"
+                              title={`${item.name} conflicts with ${command}`}
+                            >
+                              {command}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+              </>
             ) : (
               <div 
                 dangerouslySetInnerHTML={{ 
