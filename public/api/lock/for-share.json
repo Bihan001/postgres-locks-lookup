@@ -1,0 +1,13 @@
+{
+  "name": "FOR SHARE",
+  "description": "Row lock: shared; prevents DML on the row; conflicts with NO KEY UPDATE and UPDATE.",
+  "type": "row",
+  "commands": [],
+  "conflicts": {
+    "locks": [
+      "FOR NO KEY UPDATE",
+      "FOR UPDATE"
+    ],
+    "commands": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "FOR UPDATE",
+  "description": "Row lock: strongest; prevents UPDATE/DELETE/SELECT FOR UPDATE by other transactions.",
+  "type": "row",
+  "commands": [],
+  "conflicts": {
+    "locks": [
+      "FOR KEY SHARE",
+      "FOR SHARE",
+      "FOR NO KEY UPDATE",
+      "FOR UPDATE"
+    ],
+    "commands": []
+  }
+}

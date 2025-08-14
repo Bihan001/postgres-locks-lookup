@@ -1,0 +1,43 @@
+{
+  "name": "ACCESS SHARE",
+  "description": "Read-only table lock acquired by SELECT and COPY TO; only conflicts with ACCESS EXCLUSIVE.",
+  "type": "table",
+  "commands": [
+    "SELECT",
+    "COPY TO"
+  ],
+  "conflicts": {
+    "locks": [
+      "ACCESS EXCLUSIVE"
+    ],
+    "commands": [
+      "DROP TABLE",
+      "TRUNCATE",
+      "REINDEX",
+      "CLUSTER",
+      "VACUUM FULL",
+      "REFRESH MATERIALIZED VIEW",
+      "ALTER TABLE ADD COLUMN",
+      "ALTER TABLE DROP COLUMN",
+      "ALTER TABLE SET DATA TYPE",
+      "ALTER TABLE RENAME",
+      "ALTER TABLE ADD CONSTRAINT",
+      "ALTER TABLE DROP CONSTRAINT",
+      "ALTER TABLE SET STORAGE",
+      "ALTER TABLE SET COMPRESSION",
+      "ALTER TABLE ALTER CONSTRAINT",
+      "ALTER INDEX SET TABLESPACE",
+      "ALTER INDEX ATTACH PARTITION",
+      "ALTER INDEX SET FILLFACTOR",
+      "DROP INDEX",
+      "DROP INDEX CONCURRENTLY",
+      "ALTER TABLE SET/DROP DEFAULT",
+      "ALTER TABLE SET SEQUENCE",
+      "ALTER TABLE INHERIT PARENT",
+      "ALTER TABLE ENABLE/DISABLE ROW LEVEL SECURITY",
+      "ALTER TABLE DROP EXPRESSION",
+      "ALTER TABLE DETACH PARTITION (TARGET/DEFAULT)",
+      "ALTER TABLE ATTACH PARTITION (TARGET/DEFAULT)"
+    ]
+  }
+}

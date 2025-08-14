@@ -1,0 +1,12 @@
+{
+  "name": "FOR KEY SHARE",
+  "description": "Row lock: weakest; allows updates to non-unique columns; conflicts with FOR UPDATE.",
+  "type": "row",
+  "commands": [],
+  "conflicts": {
+    "locks": [
+      "FOR UPDATE"
+    ],
+    "commands": []
+  }
+}

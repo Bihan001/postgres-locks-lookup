@@ -1,0 +1,14 @@
+{
+  "name": "FOR NO KEY UPDATE",
+  "description": "Row lock acquired by UPDATE on non-unique columns; weaker than FOR UPDATE.",
+  "type": "row",
+  "commands": [],
+  "conflicts": {
+    "locks": [
+      "FOR SHARE",
+      "FOR NO KEY UPDATE",
+      "FOR UPDATE"
+    ],
+    "commands": []
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "commands": [
+    {
+      "name": "SELECT",
+      "url": "select",
+      "description": "Read data from table; acquires ACCESS SHARE table lock."
+    },
+    {
+      "name": "COPY TO",
+      "url": "copy-to",
+      "description": "Export data to file; acquires ACCESS SHARE table lock."
+    },
+    {
+      "name": "SELECT FOR UPDATE",
+      "url": "select-for-update",
+      "description": "Locks selected rows to prevent concurrent modifications; also takes ROW SHARE table lock."
+    },
+    {
+      "name": "SELECT FOR NO KEY UPDATE",
+      "url": "select-for-no-key-update",
+      "description": "Locks selected rows for update of non-key columns; takes ROW SHARE table lock."
+    },
+    {
+      "name": "SELECT FOR SHARE",
+      "url": "select-for-share",
+      "description": "Locks selected rows to prevent modifications; takes ROW SHARE table lock."
+    },
+    {
+      "name": "SELECT FOR KEY SHARE",
+      "url": "select-for-key-share",
+      "description": "Locks selected rows to prevent key modifications; takes ROW SHARE table lock."
+    },
+    {
+      "name": "DELETE",
+      "url": "delete",
+      "description": "Remove rows; takes ROW EXCLUSIVE table lock and row locks."
+    },
+    {
+      "name": "INSERT",
+      "url": "insert",
+      "description": "Insert rows; takes ROW EXCLUSIVE table lock."
+    },
+    {
+      "name": "MERGE",
+      "url": "merge",
+      "description": "Merge rows based on conditions; takes ROW EXCLUSIVE table lock."
+    },
+    {
+      "name": "COPY FROM",
+      "url": "copy-from",
+      "description": "Import data from file; takes ROW EXCLUSIVE table lock."
+    },
+    {
+      "name": "VACUUM",
+      "url": "vacuum",
+      "description": "Maintains storage; allows reads and writes; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ANALYZE",
+      "url": "analyze",
+      "description": "Collect statistics about table contents; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "CREATE INDEX CONCURRENTLY",
+      "url": "create-index-concurrently",
+      "description": "Build index allowing writes; SHARE UPDATE EXCLUSIVE on phases."
+    },
+    {
+      "name": "CREATE STATISTICS",
+      "url": "create-statistics",
+      "description": "Create extended statistics; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "COMMENT ON",
+      "url": "comment-on",
+      "description": "Add or modify comments on database objects; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "REINDEX CONCURRENTLY",
+      "url": "reindex-concurrently",
+      "description": "Rebuild indexes with minimal blocking; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE VALIDATE CONSTRAINT",
+      "url": "alter-table-validate-constraint",
+      "description": "Validate a check constraint; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET WITHOUT CLUSTER",
+      "url": "alter-table-set-without-cluster",
+      "description": "Remove clustering information; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET STATISTICS",
+      "url": "alter-table-set-statistics",
+      "description": "Set statistics target for a column; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET TABLESPACE",
+      "url": "alter-table-set-tablespace",
+      "description": "Move table to different tablespace; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE CLUSTER ON",
+      "url": "alter-table-cluster-on",
+      "description": "Set clustering index for table; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET FILLFACTOR",
+      "url": "alter-table-set-fillfactor",
+      "description": "Set table fillfactor parameter; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER INDEX RENAME",
+      "url": "alter-index-rename",
+      "description": "Rename an index; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "CREATE INDEX",
+      "url": "create-index",
+      "description": "Build index blocking writes; SHARE lock."
+    },
+    {
+      "name": "CREATE TRIGGER",
+      "url": "create-trigger",
+      "description": "Create a trigger on table; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "REFRESH MATERIALIZED VIEW CONCURRENTLY",
+      "url": "refresh-materialized-view-concurrently",
+      "description": "Concurrent refresh; EXCLUSIVE."
+    },
+    {
+      "name": "DROP TABLE",
+      "url": "drop-table",
+      "description": "Remove table completely; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "TRUNCATE",
+      "url": "truncate",
+      "description": "Remove all rows; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "REINDEX",
+      "url": "reindex",
+      "description": "Rebuild indexes; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "CLUSTER",
+      "url": "cluster",
+      "description": "Reorder table based on index; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "VACUUM FULL",
+      "url": "vacuum-full",
+      "description": "Rewrites table to compact storage; requires ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "REFRESH MATERIALIZED VIEW",
+      "url": "refresh-materialized-view",
+      "description": "Refreshes view; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD COLUMN",
+      "url": "alter-table-add-column",
+      "description": "Add column to table; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DROP COLUMN",
+      "url": "alter-table-drop-column",
+      "description": "Remove column from table; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET DATA TYPE",
+      "url": "alter-table-set-data-type",
+      "description": "Change column data type; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE RENAME",
+      "url": "alter-table-rename",
+      "description": "Rename table; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD CONSTRAINT",
+      "url": "alter-table-add-constraint",
+      "description": "Add table constraint; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DROP CONSTRAINT",
+      "url": "alter-table-drop-constraint",
+      "description": "Remove table constraint; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET STORAGE",
+      "url": "alter-table-set-storage",
+      "description": "Set column storage type; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET COMPRESSION",
+      "url": "alter-table-set-compression",
+      "description": "Set column compression method; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ALTER CONSTRAINT",
+      "url": "alter-table-alter-constraint",
+      "description": "Modify table constraint; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER INDEX SET TABLESPACE",
+      "url": "alter-index-set-tablespace",
+      "description": "Move index to different tablespace; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER INDEX ATTACH PARTITION",
+      "url": "alter-index-attach-partition",
+      "description": "Attach index partition; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER INDEX SET FILLFACTOR",
+      "url": "alter-index-set-fillfactor",
+      "description": "Set index fillfactor; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "DROP INDEX",
+      "url": "drop-index",
+      "description": "Remove index; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "UPDATE (NO KEYS)",
+      "url": "update-no-keys",
+      "description": "UPDATE operation on non-key columns; takes ROW EXCLUSIVE table lock."
+    },
+    {
+      "name": "UPDATE (KEYS)",
+      "url": "update-keys",
+      "description": "UPDATE operation on key columns; takes ROW EXCLUSIVE table lock."
+    },
+    {
+      "name": "DROP INDEX CONCURRENTLY",
+      "url": "drop-index-concurrently",
+      "description": "Drop index concurrently; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET/DROP DEFAULT",
+      "url": "alter-table-set-drop-default",
+      "description": "Set or drop column default value; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET TOAST",
+      "url": "alter-table-set-toast",
+      "description": "Set TOAST storage parameters; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET SEQUENCE",
+      "url": "alter-table-set-sequence",
+      "description": "Set sequence for column; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET N_DISTINCT",
+      "url": "alter-table-set-n_distinct",
+      "description": "Set n_distinct statistics for column; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE SET AUTOVACUUUM",
+      "url": "alter-table-set-autovacuuum",
+      "description": "Set autovacuum parameters; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE RESET STORAGE",
+      "url": "alter-table-reset-storage",
+      "description": "Reset storage parameters; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE INHERIT PARENT",
+      "url": "alter-table-inherit-parent",
+      "description": "Add table inheritance; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ENABLE/DISABLE TRIGGER",
+      "url": "alter-table-enable-disable-trigger",
+      "description": "Enable or disable triggers; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ENABLE/DISABLE RULE",
+      "url": "alter-table-enable-disable-rule",
+      "description": "Enable or disable rules; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ENABLE/DISABLE ROW LEVEL SECURITY",
+      "url": "alter-table-enable-disable-row-level-security",
+      "description": "Enable or disable row level security; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DROP EXPRESSION",
+      "url": "alter-table-drop-expression",
+      "description": "Drop generated expression column; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DETACH PARTITION (PARENT)",
+      "url": "alter-table-detach-partition-parent",
+      "description": "Detach partition - parent table lock; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DETACH PARTITION (TARGET/DEFAULT)",
+      "url": "alter-table-detach-partition-target-default",
+      "description": "Detach partition - target table lock; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DETACH PARTITION CONCURRENTLY (PARENT)",
+      "url": "alter-table-detach-partition-concurrently-parent",
+      "description": "Detach partition concurrently - parent table; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE DETACH PARTITION CONCURRENTLY (TARGET/DEFAULT)",
+      "url": "alter-table-detach-partition-concurrently-target-default",
+      "description": "Detach partition concurrently - target table; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ATTACH PARTITION (PARENT)",
+      "url": "alter-table-attach-partition-parent",
+      "description": "Attach partition - parent table lock; SHARE UPDATE EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ATTACH PARTITION (TARGET/DEFAULT)",
+      "url": "alter-table-attach-partition-target-default",
+      "description": "Attach partition - target table lock; ACCESS EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD FOREIGN KEY NOT VALID (PARENT)",
+      "url": "alter-table-add-foreign-key-not-valid-parent",
+      "description": "Add foreign key not valid - parent table; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD FOREIGN KEY NOT VALID (CHILD)",
+      "url": "alter-table-add-foreign-key-not-valid-child",
+      "description": "Add foreign key not valid - child table; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD FOREIGN KEY (PARENT)",
+      "url": "alter-table-add-foreign-key-parent",
+      "description": "Add foreign key - parent table lock; SHARE ROW EXCLUSIVE."
+    },
+    {
+      "name": "ALTER TABLE ADD FOREIGN KEY (CHILD)",
+      "url": "alter-table-add-foreign-key-child",
+      "description": "Add foreign key - child table lock; SHARE ROW EXCLUSIVE."
+    }
+  ]
+}

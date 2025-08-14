@@ -1,0 +1,76 @@
+{
+  "locks": [
+    {
+      "name": "ACCESS SHARE",
+      "url": "access-share",
+      "description": "Read-only table lock acquired by SELECT and COPY TO; only conflicts with ACCESS EXCLUSIVE.",
+      "type": "table"
+    },
+    {
+      "name": "ROW SHARE",
+      "url": "row-share",
+      "description": "Table lock for SELECT ... FOR * variants; allows reads but conflicts with EXCLUSIVE and ACCESS EXCLUSIVE.",
+      "type": "table"
+    },
+    {
+      "name": "ROW EXCLUSIVE",
+      "url": "row-exclusive",
+      "description": "Table lock acquired by DML (INSERT/UPDATE/DELETE/MERGE/COPY FROM); conflicts with SHARE, SHARE ROW EXCLUSIVE, EXCLUSIVE, ACCESS EXCLUSIVE.",
+      "type": "table"
+    },
+    {
+      "name": "SHARE UPDATE EXCLUSIVE",
+      "url": "share-update-exclusive",
+      "description": "Allows reads and writes but blocks schema changes and VACUUM FULL; conflicts with itself and stronger locks.",
+      "type": "table"
+    },
+    {
+      "name": "SHARE",
+      "url": "share",
+      "description": "Acquired by CREATE INDEX; blocks concurrent data modifications but not itself.",
+      "type": "table"
+    },
+    {
+      "name": "SHARE ROW EXCLUSIVE",
+      "url": "share-row-exclusive",
+      "description": "Blocks writes; allows SELECT FORs; conflicts with itself and stronger locks.",
+      "type": "table"
+    },
+    {
+      "name": "EXCLUSIVE",
+      "url": "exclusive",
+      "description": "Similar to ACCESS EXCLUSIVE but allows ACCESS SHARE readers (e.g., REFRESH MATERIALIZED VIEW CONCURRENTLY).",
+      "type": "table"
+    },
+    {
+      "name": "ACCESS EXCLUSIVE",
+      "url": "access-exclusive",
+      "description": "Strongest table lock; conflicts with all other table locks. Acquired by operations like VACUUM FULL, TRUNCATE, many ALTERs.",
+      "type": "table"
+    },
+    {
+      "name": "FOR KEY SHARE",
+      "url": "for-key-share",
+      "description": "Row lock: weakest; allows updates to non-unique columns; conflicts with FOR UPDATE.",
+      "type": "row"
+    },
+    {
+      "name": "FOR SHARE",
+      "url": "for-share",
+      "description": "Row lock: shared; prevents DML on the row; conflicts with NO KEY UPDATE and UPDATE.",
+      "type": "row"
+    },
+    {
+      "name": "FOR NO KEY UPDATE",
+      "url": "for-no-key-update",
+      "description": "Row lock acquired by UPDATE on non-unique columns; weaker than FOR UPDATE.",
+      "type": "row"
+    },
+    {
+      "name": "FOR UPDATE",
+      "url": "for-update",
+      "description": "Row lock: strongest; prevents UPDATE/DELETE/SELECT FOR UPDATE by other transactions.",
+      "type": "row"
+    }
+  ]
+}
